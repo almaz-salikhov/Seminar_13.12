@@ -20,24 +20,41 @@
 //     }
 // }
 
-int GetLengthOfNumber(int val)
+// int GetLengthOfNumber(int val)
+// {
+//     int count = 0; // количество цифр
+//     while(val > 0) // сначала определись с действием, потом услови 
+//     {   
+//         val = val / 10;
+//         count++;
+//     }
+//     return count;
+// }
+
+int CountOfEven(int val) // метод подсчета четных цифр в числе
 {
-    int count = 0; // количество цифр
-    while(val > 0) // сначала определись с действием, потом услови 
-    {   
+    int count = 0;
+    while(val > 0)
+    {
+        int digit = val % 10;
+        if(digit % 2 == 0)
+        {
+            count++;
+        }
         val = val / 10;
-        count++;
     }
-    return count;
+    return count; 
+    // возвращает количество четных, чтобы использовать его как размер нужного массива
+    // чтобы не получилось, что массив больше, чем количество четных цифр
 }
 
 int[] FillArrayWithEven(int val, int length) // создаем массив, вводя размер массива
 {
     int[] arr = new int[length];
-    int digit = 0;
-    for (int i = 0; i < length; i++)
+    int i = 0; 
+    while (val > 0)
     {
-        digit = val % 10;
+        int digit = val % 10;
         if(digit % 2 == 0)
         {
             arr[i] = digit;
@@ -46,10 +63,17 @@ int[] FillArrayWithEven(int val, int length) // создаем массив, в�
         val = val / 10;
     }
     return arr; // возвращает массив
-
 }
 
 int number = new Random().Next(1000, 1000000);
 Console.WriteLine("Случайное число: " + number);
-Console.Write("Четные цифры введенного числа: ");
-int[] array = FillArrayWithEven(number, GetLengthOfNumber(number));
+Console.WriteLine("Четных цифр в числе: " + CountOfEven(number));
+if(CountOfEven(number) == 0)
+{
+    Console.WriteLine("Во введенном числе отсутствуют четные цифры");
+}
+else
+{
+    Console.Write("Четные цифры введенного числа: ");
+    int[] array = FillArrayWithEven(number, CountOfEven(number));
+}
